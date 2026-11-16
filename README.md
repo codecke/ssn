@@ -13,7 +13,7 @@ Edit `config.js` to publish BOH-approved values:
 - `centres`: only verified participating locations, with their actual services. The centre finder filters by state and service.
 - `contact` and `social`: approved official links.
 
-The World Cancer Day countdown recalculates days, hours, and minutes to the next February 4. The 18,000 figure is labelled as an impact target.
+The World Cancer Day countdown recalculates days, hours, minutes, and seconds to the next February 4. The 18,000 figure is labelled as an impact target. Page motion respects the visitor's reduced-motion preference.
 
 ## BOH site connection
 

@@ -183,16 +183,18 @@ function updateCancerDay() {
   let year = now.getFullYear();
   let day = new Date(year, 1, 4);
   if (now >= day) day = new Date(++year, 1, 4);
-  let remaining = Math.max(0, Math.ceil((day - now) / 60000));
-  const days = Math.floor(remaining / 1440);
-  remaining %= 1440;
-  const hours = Math.floor(remaining / 60);
-  const minutes = remaining % 60;
-  target.innerHTML = [[days, "Days"], [hours, "Hours"], [minutes, "Minutes"]].map(([value, label]) => `<span><b>${String(value).padStart(2, "0")}</b><small>${label}</small></span>`).join("");
-  target.setAttribute("aria-label", `${days} days, ${hours} hours and ${minutes} minutes until World Cancer Day`);
+  let remaining = Math.max(0, Math.floor((day - now) / 1000));
+  const days = Math.floor(remaining / 86400);
+  remaining %= 86400;
+  const hours = Math.floor(remaining / 3600);
+  remaining %= 3600;
+  const minutes = Math.floor(remaining / 60);
+  const seconds = remaining % 60;
+  target.innerHTML = [[days, "Days"], [hours, "Hours"], [minutes, "Minutes"], [seconds, "Seconds"]].map(([value, label]) => `<span><b>${String(value).padStart(2, "0")}</b><small>${label}</small></span>`).join("");
+  target.setAttribute("aria-label", `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds until World Cancer Day`);
 }
 updateCancerDay();
-if ($("#cancer-day-countdown")) setInterval(updateCancerDay, 60000);
+if ($("#cancer-day-countdown")) setInterval(updateCancerDay, 1000);
 
 const impact = $(".impact-number");
 if (impact && "IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -210,3 +212,23 @@ if (impact && "IntersectionObserver" in window && !matchMedia("(prefers-reduced-
   }, { threshold: 0.3 });
   observer.observe(impact);
 }
+
+function startPageMotion() {
+  if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const targets = document.querySelectorAll(".section-heading, .about-grid, .pillars article, .cancer-card, .impact-strip > *, .centres-section .finder, .involved-card, .updates-section > *, .news-card, .newsletter-box, .involvement-detail section, .closing > *, .footer-top > div");
+  if (!targets.length) return;
+  targets.forEach((target, index) => {
+    target.dataset.reveal = "";
+    target.style.setProperty("--reveal-delay", `${index % 4 * 75}ms`);
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.08, rootMargin: "0px 0px -32px 0px" });
+  targets.forEach((target) => observer.observe(target));
+  document.documentElement.classList.add("motion-ready");
+}
+startPageMotion();

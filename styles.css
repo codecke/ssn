@@ -55,3 +55,35 @@
 .newsletter-box h3{font:800 24px Manrope,Arial,sans-serif;letter-spacing:-.04em;margin:0 0 8px}.newsletter-box>p{margin:0 0 18px}
 .bank-details{padding:22px;margin:22px 0;background:#fff;border:1px solid var(--line)}.bank-details p{margin:5px 0}.account-number{font:800 23px Manrope,Arial,sans-serif;letter-spacing:.06em}
 @media(max-width:760px){.news-grid{grid-template-columns:1fr}.news-article p{font-size:16px}}
+
+/* Responsive hero and motion */
+.countdown-units{grid-template-columns:repeat(4,minmax(58px,1fr));min-width:min(100%,460px)}
+@media(max-width:760px){
+  .hero{min-height:0}
+  .hero-copy{max-width:none;padding:58px 24px 62px}
+  .hero h1{font-size:clamp(43px,12vw,60px);line-height:1.04;overflow-wrap:normal}
+  .hero-tagline{font-size:22px;margin-top:24px}
+  .hero-lead{font-size:15px;line-height:1.6}
+  .hero-actions{display:grid;grid-template-columns:1fr;gap:10px}
+  .hero-actions .button{width:100%;min-height:53px}
+  .hero-foot{margin-top:31px;line-height:1.7}
+  .hero-art,.hero-rail{display:none}
+  .countdown-units{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;min-width:0}
+  .countdown-units>span{padding:10px 2px}
+  .countdown-units b{font-size:clamp(21px,6vw,29px)}
+  .countdown-units small{font-size:8px;letter-spacing:.03em}
+}
+@media(max-width:360px){.hero h1{font-size:42px}.hero-copy{padding-left:20px;padding-right:20px}}
+@media(prefers-reduced-motion:no-preference){
+  .motion-ready [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .7s cubic-bezier(.2,.8,.2,1);transition-delay:var(--reveal-delay,0ms)}
+  .motion-ready [data-reveal].is-visible{opacity:1;transform:none}
+  .hero-stamp{animation:hero-float 7s ease-in-out infinite}
+  @keyframes hero-float{0%,100%{translate:0 0}50%{translate:0 -12px}}
+  .involved-card,.pillars article,.news-card,.centre-card{transition:transform .25s ease,box-shadow .25s ease}
+  .involved-card:hover,.pillars article:hover,.news-card:hover,.centre-card:hover{transform:translateY(-5px);box-shadow:0 16px 35px rgba(0,63,37,.12)}
+  .cancer-card summary{transition:background .25s ease}
+  .cancer-card summary:hover{background:rgba(255,255,255,.24)}
+  .button,.text-link{transition:transform .25s ease,filter .25s ease}
+  .button:hover{filter:brightness(1.05)}
+  .text-link:hover{transform:translateX(3px)}
+}
