@@ -89,7 +89,7 @@ function renderDetailPage() {
 function renderCancerCards() {
   const grid = $("#cancer-grid");
   if (!grid) return;
-  grid.innerHTML = Object.entries(cancerContent).map(([key, data]) => `<details class="cancer-card" id="${key}"><summary><span class="card-number">${esc(data.eyebrow)}</span><span class="card-symbol" aria-hidden="true">✳</span><h3>${esc(data.name)}</h3><span class="card-bottom">Read key facts <span aria-hidden="true">+</span></span></summary><ul>${data.points.map((point) => `<li>${esc(point)}</li>`).join("")}</ul></details>`).join("");
+  grid.innerHTML = Object.entries(cancerContent).map(([key, data]) => `<details class="cancer-card" id="${key}"><summary><span class="card-number">${esc(data.eyebrow)}</span><img class="cancer-media" src="assets/${key}-consultation.jpg" alt="" loading="lazy" width="600" height="600"><h3>${esc(data.name)}</h3><span class="card-bottom">Read key facts <span aria-hidden="true">+</span></span></summary><ul>${data.points.map((point) => `<li>${esc(point)}</li>`).join("")}</ul></details>`).join("");
   const selected = location.hash.slice(1);
   if (cancerContent[selected]) document.getElementById(selected).open = true;
 }
