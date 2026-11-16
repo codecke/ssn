@@ -86,20 +86,73 @@ function renderDetailPage() {
   root.innerHTML = `<section class="detail-hero"><div class="detail-wrap"><a class="back-link" href="index.html#cancers">← All cancer information</a><p class="eyebrow light">${data.eyebrow} / Know the facts</p><h1>${data.name}<span class="dot yellow-dot">.</span></h1><p>${data.intro}</p></div></section><section class="detail-main"><div class="detail-wrap detail-columns"><div><p class="eyebrow">What to know</p><h2>Start with accurate information.</h2></div><div><ul class="fact-list">${data.points.map((point) => `<li>${esc(point)}</li>`).join("")}</ul><div class="medical-note"><strong>Medical information notice</strong><p>This content is for general education only and does not replace professional consultation, diagnosis or treatment. Clinical review by Blue Ozone Health is required before publication.</p></div><a class="button green" href="index.html#centres">Find a participating centre ↗</a></div></div></section>`;
 }
 
-function renderFormPage() {
-  const root = $("#form-root");
-  if (!root) return;
+function renderCancerCards() {
+  const grid = $("#cancer-grid");
+  if (!grid) return;
+  grid.innerHTML = Object.entries(cancerContent).map(([key, data]) => `<details class="cancer-card" id="${key}"><summary><span class="card-number">${esc(data.eyebrow)}</span><span class="card-symbol" aria-hidden="true">✳</span><h3>${esc(data.name)}</h3><span class="card-bottom">Read key facts <span aria-hidden="true">+</span></span></summary><ul>${data.points.map((point) => `<li>${esc(point)}</li>`).join("")}</ul></details>`).join("");
+  const selected = location.hash.slice(1);
+  if (cancerContent[selected]) document.getElementById(selected).open = true;
+}
+
+function renderGetInvolved() {
+  if ($("#form-root")) {
+    const legacyType = new URLSearchParams(location.search).get("type");
+    const anchor = { volunteer: "volunteer", partner: "partner", sponsor: "support" }[legacyType];
+    if (anchor && !location.hash) location.replace(`forms.html#${anchor}`);
+  }
+  document.querySelectorAll("[data-form-cta]").forEach((target) => {
+    const type = target.dataset.formCta;
+    const url = safeHttpUrl(config.forms?.[type]);
+    target.innerHTML = url ? `<a class="button green" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${type === "sponsor" ? "Explore support" : "Register interest"} ↗</a>` : `<p class="pending-action">${type === "sponsor" ? "Support details" : "Registration"} will be available here once confirmed by the programme team.</p>`;
+  });
+}
+
+function renderDonation() {
+  const target = $("#donation-options");
+  if (!target) return;
+  const donation = config.donation || {};
+  const paystack = safeHttpUrl(donation.paystackUrl);
+  const hasBank = donation.bankName && donation.accountName && donation.accountNumber;
+  target.innerHTML = `${paystack ? `<a class="button green" href="${esc(paystack)}" target="_blank" rel="noopener noreferrer">Donate securely ↗</a>` : ""}${hasBank ? `<div class="bank-details"><strong>Bank transfer</strong><p>${esc(donation.bankName)} · ${esc(donation.accountName)}</p><p class="account-number">${esc(donation.accountNumber)}</p></div>` : ""}${!paystack && !hasBank ? '<p class="pending-action">Donation options will appear here once BOH confirms the payment details.</p>' : ""}`;
+}
+
+function approvedNews() {
+  return (Array.isArray(config.news) ? config.news : []).filter((item) => item && /^[a-z0-9-]+$/.test(item.slug || "") && item.title && /^\d{4}-\d{2}-\d{2}$/.test(item.date || "") && item.summary && Array.isArray(item.body)).sort((a, b) => b.date.localeCompare(a.date));
+}
+
+function newsCard(item) {
+  return `<article class="news-card"><time datetime="${esc(item.date)}">${esc(item.date)}</time><h3><a href="news.html?story=${encodeURIComponent(item.slug)}">${esc(item.title)}</a></h3><p>${esc(item.summary)}</p><a class="text-link" href="news.html?story=${encodeURIComponent(item.slug)}">Read update ↗</a></article>`;
+}
+
+function renderNews() {
+  const items = approvedNews();
+  const latest = $("#latest-news");
+  const list = $("#news-list");
+  const article = $("#news-article");
+  const empty = '<p class="news-empty">Approved programme news will appear here soon.</p>';
+  if (latest) latest.innerHTML = items.length ? `<div class="news-grid">${items.slice(0, 3).map(newsCard).join("")}</div>` : empty;
+  if (list) list.innerHTML = items.length ? `<div class="news-grid">${items.map(newsCard).join("")}</div>` : empty;
+  if (!article) return;
+  const slug = new URLSearchParams(location.search).get("story");
+  if (!slug) return;
+  const story = items.find((item) => item.slug === slug);
+  if (!story) { article.hidden = false; article.innerHTML = '<h2>Update not found</h2><a href="news.html">All updates ↗</a>'; return; }
+  list.hidden = true;
+  article.hidden = false;
+  document.title = `${story.title} | Stay Safe Nigeria`;
+  article.innerHTML = `<a class="text-link" href="news.html">← All updates</a><time datetime="${esc(story.date)}">${esc(story.date)}</time><h2>${esc(story.title)}</h2>${story.body.map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}`;
+}
+
+function renderNewsletter() {
+  document.querySelectorAll("#newsletter-box").forEach((target) => {
+    const url = safeHttpUrl(config.newsletter?.signupUrl);
+    target.innerHTML = `<h3>Get updates from Blue Ozone Health</h3><p>Follow the initiative's news and community activities.</p>${url ? `<a class="button green" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Subscribe to the BOH newsletter ↗</a>` : '<p class="pending-action">Newsletter signup will be available when BOH confirms its subscription link.</p>'}`;
+  });
+}
+
+if ($("#detail-root")) {
   const type = new URLSearchParams(location.search).get("type");
-  const forms = {
-    volunteer: { title: "Volunteer with us", intro: "Share your interest in supporting cancer awareness, prevention and access to care. State Coordinator interest is handled through this registration path." },
-    partner: { title: "Partner with us", intro: "Healthcare institutions and organisations can express interest in working with the initiative." },
-    sponsor: { title: "Support the initiative", intro: "Individuals and organisations can express interest in financial or resource support. No payment is collected on this website." }
-  };
-  const data = forms[type];
-  if (!data) { root.innerHTML = `<section class="detail-main"><h1>Page not found</h1></section>`; return; }
-  document.title = `${data.title} | Stay Safe Nigeria`;
-  const url = safeHttpUrl(config.forms?.[type]);
-  root.innerHTML = `<section class="detail-hero"><div class="detail-wrap"><a class="back-link" href="index.html#involved">← Get involved</a><p class="eyebrow light">Join the movement</p><h1>${data.title}<span class="dot yellow-dot">.</span></h1><p>${data.intro}</p></div></section><section class="detail-main"><div class="detail-wrap form-area"><div><p class="eyebrow">Your next step</p><h2>${url ? "Register your interest" : "Registration is being prepared"}</h2><p>${url ? "Your registration will open in a secure form managed by the programme team." : "The official registration form is not yet connected. Please check back once Blue Ozone Health has opened this application."}</p>${url ? `<a class="button green" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Open registration form ↗</a>` : `<a class="button green" href="index.html#involved">Back to opportunities ↗</a>`}</div></div></section>`;
+  location.replace(`index.html#${cancerContent[type] ? type : "cancers"}`);
 }
 
 function renderLegalPage() {
@@ -116,6 +169,44 @@ function renderLegalPage() {
 
 renderContact();
 renderCentres();
-renderDetailPage();
-renderFormPage();
+renderCancerCards();
+renderGetInvolved();
+renderDonation();
+renderNews();
+renderNewsletter();
 renderLegalPage();
+
+function updateCancerDay() {
+  const target = $("#cancer-day-countdown");
+  if (!target) return;
+  const now = new Date();
+  let year = now.getFullYear();
+  let day = new Date(year, 1, 4);
+  if (now >= day) day = new Date(++year, 1, 4);
+  let remaining = Math.max(0, Math.ceil((day - now) / 60000));
+  const days = Math.floor(remaining / 1440);
+  remaining %= 1440;
+  const hours = Math.floor(remaining / 60);
+  const minutes = remaining % 60;
+  target.innerHTML = [[days, "Days"], [hours, "Hours"], [minutes, "Minutes"]].map(([value, label]) => `<span><b>${String(value).padStart(2, "0")}</b><small>${label}</small></span>`).join("");
+  target.setAttribute("aria-label", `${days} days, ${hours} hours and ${minutes} minutes until World Cancer Day`);
+}
+updateCancerDay();
+if ($("#cancer-day-countdown")) setInterval(updateCancerDay, 60000);
+
+const impact = $(".impact-number");
+if (impact && "IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const observer = new IntersectionObserver((entries) => {
+    if (!entries[0].isIntersecting) return;
+    observer.disconnect();
+    const start = performance.now();
+    const target = Number(impact.dataset.target);
+    const tick = (time) => {
+      const progress = Math.min((time - start) / 1500, 1);
+      impact.textContent = Math.round(target * (1 - Math.pow(1 - progress, 3))).toLocaleString();
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, { threshold: 0.3 });
+  observer.observe(impact);
+}
