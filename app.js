@@ -86,10 +86,17 @@ function renderDetailPage() {
   root.innerHTML = `<section class="detail-hero"><div class="detail-wrap"><a class="back-link" href="index.html#cancers">← All cancer information</a><p class="eyebrow light">${data.eyebrow} / Know the facts</p><h1>${data.name}<span class="dot yellow-dot">.</span></h1><p>${data.intro}</p></div></section><section class="detail-main"><div class="detail-wrap detail-columns"><div><p class="eyebrow">What to know</p><h2>Start with accurate information.</h2></div><div><ul class="fact-list">${data.points.map((point) => `<li>${esc(point)}</li>`).join("")}</ul><div class="medical-note"><strong>Medical information notice</strong><p>This content is for general education only and does not replace professional consultation, diagnosis or treatment. Clinical review by Blue Ozone Health is required before publication.</p></div><a class="button green" href="index.html#centres">Find a participating centre ↗</a></div></div></section>`;
 }
 
+const cancerPhotoDescriptions = {
+  breast: "A technician positions a patient at a mammography machine.",
+  cervical: "An HPV vaccine syringe and its packaging.",
+  prostate: "An older man talks with a healthcare professional.",
+  liver: "A healthcare professional performs an abdominal ultrasound.",
+};
+
 function renderCancerCards() {
   const grid = $("#cancer-grid");
   if (!grid) return;
-  grid.innerHTML = Object.entries(cancerContent).map(([key, data]) => `<details class="cancer-card" id="${key}"><summary><span class="card-number">${esc(data.eyebrow)}</span><img class="cancer-media" src="assets/${key}-consultation.jpg" alt="" loading="lazy" width="600" height="600"><h3>${esc(data.name)}</h3><span class="card-bottom">Read key facts <span aria-hidden="true">+</span></span></summary><ul>${data.points.map((point) => `<li>${esc(point)}</li>`).join("")}</ul></details>`).join("");
+  grid.innerHTML = Object.entries(cancerContent).map(([key, data]) => `<details class="cancer-card" id="${key}"><summary><span class="card-number">${esc(data.eyebrow)}</span><img class="cancer-media" src="assets/${key}-cancer-stock.webp" alt="${esc(cancerPhotoDescriptions[key])}" loading="lazy" width="720" height="480"><h3>${esc(data.name)}</h3><span class="card-bottom">Read key facts <span aria-hidden="true">+</span></span></summary><ul>${data.points.map((point) => `<li>${esc(point)}</li>`).join("")}</ul></details>`).join("");
   const selected = location.hash.slice(1);
   if (cancerContent[selected]) document.getElementById(selected).open = true;
 }
@@ -113,7 +120,7 @@ function renderDonation() {
   const donation = config.donation || {};
   const paystack = safeHttpUrl(donation.paystackUrl);
   const hasBank = donation.bankName && donation.accountName && donation.accountNumber;
-  target.innerHTML = `${paystack ? `<a class="button green" href="${esc(paystack)}" target="_blank" rel="noopener noreferrer">Donate securely ↗</a>` : ""}${hasBank ? `<div class="bank-details"><strong>Bank transfer</strong><p>${esc(donation.bankName)} · ${esc(donation.accountName)}</p><p class="account-number">${esc(donation.accountNumber)}</p></div>` : ""}${!paystack && !hasBank ? '<p class="pending-action">Donation options will appear here once BOH confirms the payment details.</p>' : ""}`;
+  target.innerHTML = `${paystack ? `<a class="button green" href="${esc(paystack)}" target="_blank" rel="noopener noreferrer">Donate securely ↗</a>` : ""}${hasBank ? `<div class="bank-details"><strong>Bank transfer</strong><p>${esc(donation.bankName)} · ${esc(donation.accountName)}</p><p class="account-number">${esc(donation.accountNumber)}</p></div>` : ""}${!paystack && !hasBank ? '<p class="pending-action">Donation options will appear here soon.</p>' : ""}`;
 }
 
 function approvedNews() {
@@ -205,7 +212,8 @@ if (impact && "IntersectionObserver" in window && !matchMedia("(prefers-reduced-
     const target = Number(impact.dataset.target);
     const tick = (time) => {
       const progress = Math.min((time - start) / 1500, 1);
-      impact.textContent = Math.round(target * (1 - Math.pow(1 - progress, 3))).toLocaleString();
+      const current = Math.round(target * (1 - (1 - progress) ** 3));
+      impact.textContent = current.toLocaleString("en-NG") + (progress === 1 ? "+" : "");
       if (progress < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
