@@ -154,3 +154,89 @@
   .hero h1 span,.hero h1 em{animation:rise-in .7s both}
   .hero h1 em{animation-delay:.15s}
 }
+
+/* November campaign corrections */
+[hidden]{display:none!important}
+.hero{display:block;min-height:0;background:var(--deep)}
+.hero-gallery{position:absolute;inset:0;pointer-events:none}
+.hero-backdrop{opacity:0}
+.hero-backdrop.is-current{opacity:1}
+.hero-backdrop img{display:block;object-position:65% center}
+.hero::before{background:linear-gradient(90deg,#003f25 0%,rgba(0,48,29,.95) 29%,rgba(0,48,29,.78) 52%,rgba(0,38,23,.22) 100%),linear-gradient(0deg,rgba(0,33,20,.48),transparent 46%)}
+.hero-copy{max-width:100%;padding:clamp(4.5rem,8vw,8rem) max(28px,calc((100vw - var(--max))/2)) 5.25rem}
+.hero h1{font-size:clamp(2.9rem,6.7vw,6.4rem);max-width:11ch;line-height:.98;letter-spacing:-.055em}
+.hero h1 span{font-size:.41em;letter-spacing:.08em;margin-bottom:.35em}
+.hero h1 em{color:#ffe191}
+.hero-tagline{font-size:clamp(1.05rem,2vw,1.5rem);line-height:1.35;letter-spacing:.02em;margin-top:1.5rem}
+.hero-lead{max-width:34rem;margin:1rem 0 .7rem;color:#f1f8f3}
+.hero-mission{font-weight:800;color:#fff1c9;margin:.25rem 0 1.5rem}
+.hero-foot{display:block;max-width:37rem;margin:1.25rem 0 0;font-size:.875rem;letter-spacing:0}
+.hero-motion-toggle{position:absolute;z-index:3;right:max(18px,calc((100vw - var(--max))/2));bottom:1rem;color:white;background:#092f1de6;border:1px solid #c5e5d1;border-radius:4px;padding:.55rem .9rem;font-size:.875rem}
+.hero-motion-toggle:hover{background:#092f1d}
+.hero-motion-toggle:focus-visible{outline:2px solid var(--yellow);outline-offset:3px}
+.world-cancer-countdown h2{font:800 clamp(1.35rem,2.7vw,2.3rem)/1.15 Manrope,Arial,sans-serif;letter-spacing:-.04em;margin:.3rem 0 .85rem}
+.world-cancer-countdown p{margin:.4rem 0}
+.world-cancer-countdown strong{font-size:1rem;letter-spacing:0}
+.countdown-units{flex:0 1 28rem;min-width:min(44%,28rem)}
+.countdown-units small{font-size:.72rem}
+.intro-strip a{display:inline-block;width:fit-content;padding:.5rem 0;border-bottom:2px solid currentColor;text-transform:none;letter-spacing:0;font-size:1rem}
+.intro-strip a:hover{text-decoration:none}
+.pillars h4{margin:0 0 .5rem;color:var(--forest);font:800 1.1rem Manrope,Arial,sans-serif;letter-spacing:.045em}
+.burden-section{padding-top:48px}
+.burden-copy{max-width:48rem}
+.burden-copy p{margin:.6rem 0}
+.burden-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;list-style:none;margin:1.75rem 0 .75rem;padding:0}
+.burden-stats li{background:#eaf3e9;border-top:3px solid var(--forest);padding:1rem 1.25rem;color:#213f31}
+.burden-stats p{font-size:.88rem;font-weight:800;margin:0}
+.burden-stats .impact-number{display:block;font:800 clamp(1.9rem,4vw,3.75rem)/1.05 Manrope,Arial,sans-serif;letter-spacing:-.035em;color:var(--forest);font-variant-numeric:tabular-nums;margin-bottom:.4rem}
+.source-note,.content-note{font-size:.875rem}
+.source-note a,.content-note a{text-decoration:underline;text-underline-offset:.15em}
+.cancer-grid{align-items:start}
+.cancer-card summary{min-height:330px}
+.cancer-card .cancer-media{margin:0 0 1rem}
+.cancer-card#liver .cancer-media{object-position:center 73%}
+.cancer-card h3{font-size:clamp(1.15rem,2vw,1.6rem);letter-spacing:-.02em;margin-bottom:.6rem}
+.cancer-estimate{margin:0 0 1rem;font-size:.875rem}
+.cancer-copy{background:#fff;padding:1.15rem 1.5rem 1.5rem}
+.cancer-copy p{margin:0 0 .65rem}
+.impact-strip h2{font:800 clamp(1.5rem,3.2vw,3rem)/1.15 Manrope,Arial,sans-serif;margin:0 0 .8rem;letter-spacing:-.04em}
+.impact-strip p{margin:.4rem 0}
+.involved-section .section-heading.split p{margin:0 0 .5rem}
+.closing{background:#092f1d;border-bottom:1px solid #ffffff26;align-items:center}
+.closing h2{font-size:clamp(2rem,4.9vw,4.7rem);max-width:15ch;margin-bottom:1rem}
+.closing p{max-width:42rem;margin:.65rem 0}
+.closing-signature{color:#ffe191;font-weight:800}
+.closing-actions{display:flex;flex-wrap:wrap;gap:.65rem;min-width:min(24rem,40%)}
+.closing .button{margin:0}
+.footer-top .footer-wordmark{font:800 1.45rem/1.1 Manrope,Arial,sans-serif;color:#fff;margin:.2rem 0 .65rem}
+.footer-top .footer-credit{font-size:.95rem;color:#fff;width:fit-content}
+.footer-top .social-button{display:inline-flex;width:fit-content;margin:.25rem 0 0}
+.finder-controls :disabled{opacity:.66;cursor:default}
+.motion-ready [data-reveal]:focus-within{opacity:1;transform:none}
+@media(prefers-reduced-motion:no-preference){
+  .hero-backdrop{transition:opacity .9s ease}
+  .hero-copy>*:nth-child(6){animation-delay:.4s}
+}
+@media(max-width:760px){
+  .hero::before{background:linear-gradient(90deg,rgba(0,44,27,.94),rgba(0,44,27,.74)),linear-gradient(0deg,#003f25 0%,transparent 72%)}
+  .hero-copy{padding:3rem clamp(18px,6vw,32px) 4.5rem}
+  .hero h1{font-size:clamp(2.55rem,11vw,4.7rem)}
+  .hero-lead{font-size:1rem}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  .hero-actions .button{width:auto;min-height:44px;padding:.65rem .85rem}
+  .countdown-units{min-width:0}
+  .countdown-units small{font-size:clamp(.6rem,2.8vw,.72rem)}
+  .burden-stats{grid-template-columns:1fr;gap:.75rem}
+  .cancer-card summary{min-height:285px}
+  .closing-actions{margin-top:1.4rem}
+}
+@media(max-width:410px){
+  .hero h1{font-size:clamp(2.1rem,11vw,2.8rem)}
+}
+
+/* Preserve the approved title case and keep the detailed eligibility copy optional. */
+.world-cancer-countdown .eyebrow,.countdown-units small,.footer-top h2{text-transform:none}
+.involved-eligibility{margin-bottom:1rem}
+.involved-eligibility summary{cursor:pointer;font-weight:800}
+.involved-eligibility ul{padding-left:1.2rem;margin:.45rem 0 0}
+.footer-top .footer-social-title{margin:1.25rem 0 .75rem}

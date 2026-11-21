@@ -4,12 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#00552b">
-  <meta name="description" content="Stay Safe Nigeria is a nationwide initiative advancing cancer awareness, prevention, early detection and access to care.">
+  <meta name="description" content="A nationwide movement advancing cancer awareness, prevention, early detection and access to care across Nigeria.">
   <title>Stay Safe Nigeria | Sensitize. Screen. Protect.</title>
+  <link rel="canonical" href="https://www.staysafenigeria.org/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Stay Safe Nigeria">
+  <meta property="og:title" content="Stay Safe Nigeria | Sensitize. Screen. Protect.">
+  <meta property="og:description" content="A nationwide movement advancing cancer awareness, prevention, early detection and access to care across Nigeria.">
+  <meta property="og:url" content="https://www.staysafenigeria.org/">
+  <meta property="og:image" content="https://www.staysafenigeria.org/assets/lagos-marina.webp">
+  <meta property="og:image:alt" content="Aerial view of Lagos Marina, Nigeria">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/stay-safe-logo.webp" type="image/webp">
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=5">
   <script src="config.js" defer></script>
-  <script src="app.js?v=3" defer></script>
+  <script src="app.js?v=5" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -18,36 +27,68 @@
     <a class="brand" href="index.html" aria-label="Stay Safe Nigeria home"><img src="assets/stay-safe-logo.webp" alt="Stay Safe Nigeria 2027" width="128" height="90"><span class="brand-divider"></span><span class="brand-caption">Sensitize.<br>Screen.<br>Protect.</span></a>
     <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false"><span>Menu</span><span class="hamburger" aria-hidden="true"></span></button>
     <nav class="site-nav" id="site-nav" aria-label="Main navigation">
-      <a href="#about">About</a><a href="#centres">Find a centre</a><a href="forms.html">Get involved</a><a href="news.html">News &amp; Updates</a><a class="nav-cta" href="forms.html">Take action <span aria-hidden="true">↗</span></a>
+      <a href="#about">About</a><a href="#centres">Find a Centre</a><a href="forms.html">Get Involved</a><a href="news.html">News &amp; Updates</a><a class="nav-cta" href="forms.html">Take action</a>
     </nav>
   </header>
 
   <main id="main">
     <section class="hero" aria-labelledby="hero-title">
-      <picture class="hero-backdrop" aria-hidden="true">
-        <source media="(max-width: 760px)" srcset="assets/lagos-marina-small.webp">
-        <img src="assets/lagos-marina.webp" alt="" width="1600" height="1067" fetchpriority="high">
-      </picture>
-      <div class="hero-copy">
-        <p class="eyebrow light">A national cancer awareness programme</p>
-        <h1 id="hero-title"><span>Welcome to</span> <em>Stay Safe Nigeria.</em></h1>
-        <p class="hero-tagline">Help bring cancer awareness and early detection closer to communities across Nigeria.</p>
-        <p class="hero-lead">We bring communities and healthcare organisations together to share clear information about cancer, encourage appropriate screening and help people find care.</p>
-        <div class="hero-actions">
-          <a class="button yellow" href="forms.html#volunteer">Volunteer <span aria-hidden="true">↗</span></a>
-          <a class="button outline-light" href="forms.html#partner">Partner <span aria-hidden="true">↗</span></a>
-          <a class="button outline-light" href="forms.html#support">Support <span aria-hidden="true">↗</span></a>
-        </div>
-        <p class="hero-foot">Four priority cancers <span></span> Part of the End Cancer Nigeria 2050 Agenda</p>
+      <div class="hero-gallery" aria-hidden="true">
+        <picture class="hero-backdrop is-current">
+          <source media="(max-width: 760px)" srcset="assets/lagos-marina-small.webp">
+          <img src="assets/lagos-marina.webp" alt="" width="1600" height="1067" fetchpriority="high">
+        </picture>
+        <div class="hero-backdrop" data-slide="assets/hero-healthcare-outreach.webp"></div>
+        <div class="hero-backdrop" data-slide="assets/hero-awareness-outreach.webp"></div>
       </div>
-      <div class="hero-art" aria-hidden="true"><div class="hero-stamp"><img src="assets/stay-safe-logo.webp" alt="" width="430" height="303"></div></div>
+      <div class="hero-copy">
+        <h1 id="hero-title"><span>WELCOME TO</span> <em>STAY SAFE NIGERIA!</em></h1>
+        <p class="hero-tagline">SENSITIZE. SCREEN. PROTECT.</p>
+        <p class="hero-lead">A nationwide movement advancing cancer awareness, prevention, early detection and access to care across Nigeria.</p>
+        <p class="hero-mission">4 Cancers. 36 States. FCT. One Mission.</p>
+        <div class="hero-actions">
+          <a class="button yellow" href="#about">EXPLORE THE INITIATIVE</a>
+          <a class="button outline-light" href="#centres">FIND A CENTRE</a>
+          <a class="button outline-light" href="forms.html">GET INVOLVED</a>
+        </div>
+        <p class="hero-foot">An initiative of Blue Ozone Health under the END CANCER NIGERIA 2050 AGENDA.</p>
+      </div>
+      <button class="hero-motion-toggle" type="button" hidden>Pause images</button>
     </section>
 
-    <section class="world-cancer-countdown" aria-label="Countdown to World Cancer Day"><div><p class="eyebrow">World Cancer Day · 4 February</p><strong>Every day is a chance to act.</strong></div><div class="countdown-units" id="cancer-day-countdown" role="timer" aria-label="Time until World Cancer Day"><span>Loading countdown…</span></div></section>
+    <section class="world-cancer-countdown" aria-labelledby="countdown-title">
+      <div>
+        <p class="eyebrow">World Cancer Day | 4 February 2027.</p>
+        <h2 id="countdown-title">The Countdown to Action Has Begun.</h2>
+        <p><strong>The Time to Act Is Now.</strong></p>
+        <p>On 4 February 2027, communities across Nigeria will come together to advance cancer awareness, prevention and early detection.</p>
+      </div>
+      <div class="countdown-units" id="cancer-day-countdown" role="timer" aria-label="Time until World Cancer Day" hidden></div>
+    </section>
 
-    <section class="intro-strip" aria-label="Programme overview"><p>Knowledge leads to action.</p><p>Action can change lives.</p><a href="#about">Discover the initiative <span aria-hidden="true">↘</span></a></section>
+    <section class="intro-strip" aria-label="Programme overview">
+      <p>SENSITIZE. SCREEN. PROTECT.</p>
+      <a href="#about">Explore the Initiative</a>
+    </section>
 
-    <section class="section about-section" id="about" aria-labelledby="about-title"><div class="section-heading"><p class="eyebrow">01 / The initiative</p><h2 id="about-title">What the programme does<span class="dot">.</span></h2></div><div class="about-grid"><p class="large-copy">Cancer prevention and early detection should be within reach for more Nigerians.</p><div class="about-body"><p>Blue Ozone Health leads Stay Safe Nigeria as part of the End Cancer Nigeria 2050 Agenda. The programme brings together communities and healthcare institutions so people can learn about cancer, understand when screening is appropriate and find services for further assessment.</p><a class="text-link" href="#pillars">Explore our approach <span aria-hidden="true">↗</span></a></div></div><div class="pillars" id="pillars"><article><span>01</span><h3>Sensitisation</h3><p>Clear, accurate information to improve understanding of cancer and reduce misconceptions.</p></article><article><span>02</span><h3>Prevention</h3><p>Encouraging vaccination, risk reduction and appropriate preventive healthcare.</p></article><article><span>03</span><h3>Early detection</h3><p>Connecting people to appropriate screening and clinical assessment.</p></article><article><span>04</span><h3>Navigation</h3><p>Helping people find the right healthcare services for further assessment and follow-up.</p></article></div></section>
+    <section class="section about-section" id="about" aria-labelledby="about-title">
+      <div class="section-heading"><h2 id="about-title">Why Stay Safe Nigeria</h2></div>
+      <div class="about-grid">
+        <p class="large-copy">From Awareness to Action.</p>
+        <div class="about-body">
+          <p>STAY SAFE NIGERIA! is a nationwide cancer awareness, prevention, screening, early-detection and patient-navigation initiative led by Blue Ozone Health.</p>
+          <p>Through community engagement, healthcare partnerships, public education and access to appropriate screening services, the initiative seeks to bring cancer prevention and early detection closer to Nigerians.</p>
+          <p>We are bringing together healthcare professionals, institutions, volunteers, communities, organisations and partners to strengthen Nigeria’s response to cancer.</p>
+        </div>
+      </div>
+      <h3 id="pillars">Our Four Pillars</h3>
+      <div class="pillars" aria-labelledby="pillars">
+        <article><h4>SENSITIZE</h4><p>Improve cancer literacy, promote accurate information and address misinformation, misconceptions and stigma.</p></article>
+        <article><h4>SCREEN</h4><p>Facilitate access to appropriate cancer screening and clinical assessment through participating healthcare institutions.</p></article>
+        <article><h4>PROTECT</h4><p>Promote cancer prevention through vaccination, risk reduction, healthier behaviours and preventive healthcare.</p></article>
+        <article><h4>CONNECT</h4><p>Strengthen referral pathways, patient navigation and linkages to appropriate healthcare services.</p><p>The CONNECT pillar reinforces the importance of ensuring that people who require further assessment are not left without direction.</p></article>
+      </div>
+    </section>
 
     <div class="section outreach-photo">
       <figure>
@@ -56,57 +97,190 @@
       </figure>
     </div>
 
-    <section class="section cancers-section" id="cancers" aria-labelledby="cancers-title"><div class="section-heading split"><div><p class="eyebrow">02 / Know the facts</p><h2 id="cancers-title">Four cancers.<br>More informed choices<span class="dot">.</span></h2></div><p>Explore the initiative’s four priority areas. Information is educational and does not replace a consultation with a healthcare professional.</p></div><div class="cancer-grid" id="cancer-grid"></div><p class="content-note">Medical content requires Blue Ozone Health clinical approval before public launch.</p></section>
-
-    <section class="impact-strip" aria-label="Campaign impact target">
-      <div>
-        <p class="impact-target"><strong class="impact-number" data-target="18000" aria-hidden="true">18,000+</strong><strong class="visually-hidden">18,000+</strong> people we aim to reach</p>
+    <section class="section burden-section" aria-labelledby="burden-title">
+      <div class="section-heading"><h2 id="burden-title">Cancer Is a National Challenge. Action Cannot Wait.</h2></div>
+      <div class="burden-copy">
+        <p>Nigeria is Africa’s most populous country, yet cancer continues to place a substantial burden on individuals, families, communities and the healthcare system.</p>
+        <p>Late presentation, limited access to appropriate screening and diagnostic services, inadequate awareness, misinformation and stigma create additional challenges.</p>
+        <p>Cancer is not just a medical diagnosis.</p>
+        <p>It affects families, livelihoods, communities and national development.</p>
+        <p>We are responding with a coordinated effort to improve awareness, prevention, early detection and access to care.</p>
       </div>
-      <p>Join the movement to bring cancer awareness and access to care closer to communities.</p>
+      <ul class="burden-stats">
+        <li><p><strong class="impact-number" data-target="152261" aria-hidden="true">152,261</strong><span class="visually-hidden">152,261</span> NEW CASES</p></li>
+        <li><p><strong class="impact-number" data-target="90795" aria-hidden="true">90,795</strong><span class="visually-hidden">90,795</span> LIVES LOST</p></li>
+        <li><p><strong class="impact-number" data-target="292934" aria-hidden="true">292,934</strong><span class="visually-hidden">292,934</span> PEOPLE LIVING WITH A RECENT CANCER HISTORY WITHIN THE FIVE-YEAR PREVALENCE PERIOD</p></li>
+      </ul>
+      <p class="source-note">Source: <a href="https://gco.iarc.who.int/today/en/fact-sheets-populations/566/nigeria">International Agency for Research on Cancer (IARC), Global Cancer Observatory, 2024 estimates.</a></p>
+      <div class="burden-copy">
+        <p>Behind every statistic is a person, a family and a story.</p>
+        <p>We believe that improved awareness, prevention, timely screening and access to appropriate care can make a meaningful difference.</p>
+        <p>We are not waiting for the numbers to rise. We are mobilising action.</p>
+      </div>
     </section>
 
-    <section class="centres-section" id="centres" aria-labelledby="centres-title"><div class="section centres-inner"><div class="section-heading split"><div><p class="eyebrow light">03 / Care, closer to you</p><h2 id="centres-title">Find a participating centre<span class="dot yellow-dot">.</span></h2></div><p>Only healthcare institutions formally approved for the Stay Safe Nigeria network will be listed here.</p></div><div class="finder"><div class="finder-controls"><label for="state-filter">Choose a state</label><select id="state-filter"><option value="">All states</option></select><label for="service-filter">Service</label><select id="service-filter"><option value="">All services</option></select><button class="button yellow" id="find-button" type="button">Search centres <span aria-hidden="true">↗</span></button></div><div class="finder-results" id="centre-results" aria-live="polite"></div></div></div></section>
+    <section class="section cancers-section" id="cancers" aria-labelledby="cancers-title">
+      <div class="section-heading"><h2 id="cancers-title">Four cancers.<br>More informed choices<span class="dot">.</span></h2></div>
+      <div class="cancer-grid" id="cancer-grid">
+        <details class="cancer-card" id="breast">
+          <summary>
+            <img class="cancer-media" src="assets/breast-outreach-nigeria.webp" alt="Participants hold a breast cancer awareness banner." width="780" height="591" loading="lazy" decoding="async">
+            <h3>BREAST CANCER</h3>
+            <p class="cancer-estimate">44,196 estimated new cases in Nigeria in 2024.</p>
+            <span class="card-bottom">LEARN MORE <span aria-hidden="true">+</span></span>
+          </summary>
+          <div class="cancer-copy"><p>Breast cancer is a major cancer burden in Nigeria.</p><p>Early clinical assessment, appropriate screening, awareness of breast changes and timely referral are important components of breast cancer control.</p><a class="text-link" href="#centres">FIND A CENTRE</a></div>
+        </details>
+        <details class="cancer-card" id="cervical">
+          <summary>
+            <img class="cancer-media" src="assets/cervical-screening-abuja.webp" alt="Women register for breast and cervical cancer screening in Kuje, Abuja." width="860" height="574" loading="lazy" decoding="async">
+            <h3>CERVICAL CANCER</h3>
+            <p class="cancer-estimate">12,312 estimated new cases in Nigeria in 2024.</p>
+            <span class="card-bottom">LEARN MORE <span aria-hidden="true">+</span></span>
+          </summary>
+          <div class="cancer-copy"><p>Cervical cancer is largely preventable through HPV vaccination, appropriate screening and timely management of precancerous lesions.</p><a class="text-link" href="#centres">FIND A CENTRE</a></div>
+        </details>
+        <details class="cancer-card" id="prostate">
+          <summary>
+            <img class="cancer-media" src="assets/prostate-outreach-nigeria.webp" alt="A man in a patterned cap speaks with another person during an outreach visit." width="780" height="520" loading="lazy" decoding="async">
+            <h3>PROSTATE CANCER</h3>
+            <p class="cancer-estimate">24,396 estimated new cases in Nigeria in 2024.</p>
+            <span class="card-bottom">LEARN MORE <span aria-hidden="true">+</span></span>
+          </summary>
+          <div class="cancer-copy"><p>Prostate cancer is a major health concern among Nigerian men.</p><p>Awareness, informed screening decisions and timely clinical assessment are important.</p><a class="text-link" href="#centres">FIND A CENTRE</a></div>
+        </details>
+        <details class="cancer-card" id="liver">
+          <summary>
+            <img class="cancer-media" src="assets/hepatitis-outreach-nigeria.webp" alt="A health worker administers a hepatitis vaccination at a community outreach in Nigeria." width="660" height="880" loading="lazy" decoding="async">
+            <h3>LIVER CANCER</h3>
+            <p class="cancer-estimate">3,783 estimated new cases in Nigeria in 2024.</p>
+            <span class="card-bottom">LEARN MORE <span aria-hidden="true">+</span></span>
+          </summary>
+          <div class="cancer-copy"><p>Liver cancer prevention includes addressing hepatitis B and C infections, promoting vaccination and supporting early identification and management of liver disease.</p><a class="text-link" href="#centres">FIND A CENTRE</a></div>
+        </details>
+      </div>
+      <p class="content-note"><a href="legal.html?type=medical">Medical Disclaimer</a></p>
+    </section>
+
+    <section class="impact-strip" aria-labelledby="impact-title">
+      <div>
+        <h2 id="impact-title">36 States. The FCT. One National Mission.</h2>
+        <p>STAY SAFE NIGERIA! aims to mobilise communities across all 36 states and the Federal Capital Territory.</p>
+        <p>Our initial programme target is to reach at least 500 people per state.</p>
+      </div>
+      <p class="impact-target">National Target: <strong class="impact-number" data-target="18500" data-suffix="+" aria-hidden="true">18,500+</strong><span class="visually-hidden">18,500+</span> People.</p>
+    </section>
+
+    <section class="centres-section" id="centres" aria-labelledby="centres-title"><div class="section centres-inner"><div class="section-heading split"><div><h2 id="centres-title">Care Should Be Closer. Access Should Be Easier.</h2></div><p>Visitors should be able to discover healthcare facilities participating in STAY SAFE NIGERIA.</p></div><div class="finder"><div class="finder-controls"><label for="state-filter">Choose a state</label><select id="state-filter"><option value="">All states</option></select><label for="service-filter">Service</label><select id="service-filter"><option value="">All services</option></select><button class="button yellow" id="find-button" type="button">Search centres</button></div><div class="finder-results" id="centre-results" aria-live="polite"></div></div></div></section>
 
     <section class="section involved-section" id="involved" aria-labelledby="involved-title">
       <div class="section-heading split">
-        <div><p class="eyebrow">Get involved</p><h2 id="involved-title">Help bring the programme to more communities<span class="dot">.</span></h2></div>
-        <p>Give your time, bring your organisation on board, or help provide the resources that make outreach possible.</p>
+        <h2 id="involved-title">This Mission Needs You.</h2>
+        <div><p>Cancer prevention and early detection require collective action.</p><p>Whether you are an individual, healthcare professional, organisation or corporate institution, there is a place for you.</p></div>
       </div>
       <div class="involved-grid">
         <article class="involved-card">
-          <h3>Volunteer your skills</h3>
-          <p>Help communities learn about cancer and find their next step. Contribute your time in healthcare, outreach, research, communications or operations.</p>
-          <a class="button green" href="forms.html#volunteer">Explore volunteering <span aria-hidden="true">↗</span></a>
+          <h3>Volunteer with us</h3>
+          <p>For individuals interested in contributing their time, expertise, skills and networks.</p>
+          <details class="involved-eligibility">
+            <summary>Open to:</summary>
+            <ul>
+              <li>Medical doctors.</li>
+              <li>Nurses.</li>
+              <li>Pharmacists.</li>
+              <li>Laboratory scientists.</li>
+              <li>Radiographers.</li>
+              <li>Public health professionals.</li>
+              <li>Medical and other university students.</li>
+              <li>Researchers.</li>
+              <li>Community advocates.</li>
+              <li>Media professionals.</li>
+              <li>Creatives.</li>
+              <li>Administrative and operational volunteers.</li>
+              <li>Other interested individuals.</li>
+            </ul>
+          </details>
+          <a class="button green" href="forms.html#volunteer">BECOME A VOLUNTEER</a>
         </article>
         <article class="involved-card">
-          <h3>Partner with us</h3>
-          <p>Bring your organisation’s expertise or community network to the programme. We welcome interest from healthcare institutions, universities, associations and NGOs.</p>
-          <a class="button green" href="forms.html#partner">Explore partnership <span aria-hidden="true">↗</span></a>
+          <h3>PARTNER WITH US</h3>
+          <p>For institutions and organisations interested in collaborating with the initiative.</p>
+          <details class="involved-eligibility">
+            <summary>Open to:</summary>
+            <ul>
+              <li>Hospitals.</li>
+              <li>Cancer and oncology centres.</li>
+              <li>Diagnostic centres.</li>
+              <li>Medical and professional associations.</li>
+              <li>Government agencies.</li>
+              <li>NGOs.</li>
+              <li>Universities.</li>
+              <li>Research institutions.</li>
+              <li>Corporate organisations.</li>
+              <li>Foundations.</li>
+              <li>Community organisations.</li>
+            </ul>
+          </details>
+          <a class="button green" href="forms.html#partner">BECOME A PARTNER</a>
         </article>
         <article class="involved-card featured">
-          <h3>Support the mission</h3>
-          <p>Help the programme reach more people. Financial or practical support can help expand cancer education, screening and community outreach.</p>
-          <a class="button green" href="forms.html#support">Explore support <span aria-hidden="true">↗</span></a>
+          <h3>SPONSOR THE INITIATIVE</h3>
+          <p>For individuals, organisations and institutions interested in supporting programme implementation.</p>
+          <p>Your support can help bring cancer education, prevention, screening and early-detection services closer to communities across Nigeria.</p>
+          <a class="button green" href="forms.html#support">SPONSOR STAY SAFE NIGERIA</a>
         </article>
       </div>
     </section>
 
-    <section class="section updates-section" id="updates" aria-labelledby="updates-title"><div class="section-heading split"><div><p class="eyebrow">05 / News &amp; Updates</p><h2 id="updates-title">Stay informed<span class="dot">.</span></h2></div><p>Announcements, activities and stories from the initiative will appear here once approved by Blue Ozone Health.</p></div><div id="latest-news"></div><a class="text-link" href="news.html">All news &amp; updates <span aria-hidden="true">↗</span></a><div class="newsletter-box" id="newsletter-box"></div></section>
+    <section class="section updates-section" id="updates" aria-labelledby="updates-title">
+      <div class="section-heading"><p class="eyebrow">News &amp; Updates</p><h2 id="updates-title">Stay Informed. Stay Involved.</h2></div>
+      <div id="latest-news"></div>
+      <a class="text-link" href="news.html">VIEW ALL UPDATES</a>
+      <div class="newsletter-box" id="newsletter-box" hidden></div>
+    </section>
 
-    <section class="closing"><div><p class="eyebrow light">Together, we can do more</p><h2>Be part of the<br><em>change.</em></h2></div><a class="button yellow" href="forms.html">Get involved <span aria-hidden="true">↗</span></a></section>
+    <section class="closing" aria-labelledby="closing-title">
+      <div>
+        <h2 id="closing-title">A Cancer-Free Nigeria Is Possible.</h2>
+        <p>The fight against cancer requires awareness, prevention, early detection, collaboration and sustained action.</p>
+        <p>We invite individuals, healthcare professionals, institutions, organisations and communities to become part of this mission.</p>
+        <p class="closing-signature">STAY SAFE NIGERIA!<br>SENSITIZE. SCREEN. PROTECT.</p>
+      </div>
+      <div class="closing-actions">
+        <a class="button yellow" href="forms.html#volunteer">VOLUNTEER</a>
+        <a class="button outline-light" href="forms.html#partner">PARTNER WITH US</a>
+        <a class="button outline-light" href="forms.html#support">SUPPORT THE INITIATIVE</a>
+      </div>
+    </section>
   </main>
 
-  <footer class="site-footer"><div class="footer-top"><div><img src="assets/stay-safe-logo.webp" alt="Stay Safe Nigeria 2027" width="150" height="106"><p>Sensitize. Screen. Protect.<br>Led by <a href="https://blueozonehealth.org" target="_blank" rel="noopener noreferrer">Blue Ozone Health ↗</a></p><img class="boh-logo" src="assets/blue-ozone-health.webp" alt="Blue Ozone Health" width="120" height="75"></div><div><h2>Explore</h2><a href="#about">About</a><a href="#centres">Find a centre</a><a href="forms.html">Get involved</a><a href="news.html">News &amp; Updates</a></div><div><h2>Connect</h2><div id="contact-links"><p>Official contact details are being confirmed.</p></div><div id="social-links"></div><a href="https://linktr.ee/blueozonehealth" target="_blank" rel="noopener noreferrer">BOH social channels ↗</a></div></div>
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div>
+        <p class="footer-wordmark">STAY SAFE NIGERIA!</p>
+        <p>SENSITIZE. SCREEN. PROTECT.</p>
+        <a class="footer-credit" href="https://blueozonehealth.org" target="_blank" rel="noopener noreferrer">Initiative by Blue Ozone Health</a>
+        <p>Under the END CANCER NIGERIA 2050 AGENDA.</p>
+        <img class="boh-logo" src="assets/blue-ozone-health.webp" alt="Blue Ozone Health" width="120" height="75" loading="lazy">
+      </div>
+      <div><h2>Quick Links</h2><a href="#top">Home</a><a href="#about">About</a><a href="#centres">Find a Centre</a><a href="forms.html">Get Involved</a><a href="news.html">News &amp; Updates</a></div>
+      <div>
+        <h2>Connect</h2>
+        <div id="contact-links"></div>
+        <h2 class="footer-social-title">Social Media</h2>
+        <div id="social-links"></div>
+        <a class="button outline-light social-button" href="https://linktr.ee/blueozonehealth" target="_blank" rel="noopener noreferrer">BOH social channels</a>
+      </div>
+    </div>
     <details class="photo-credits">
       <summary>Photo credits</summary>
       <ul>
         <li><a href="https://commons.wikimedia.org/wiki/File:Aerial_view_of_Marina,_Lagos_Island_East,_Lagos-Nigeria.jpg">Lagos Marina by Omoeko Media</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Resized and cropped.</li>
-        <li><a href="https://visualsonline.cancer.gov/details.cfm?imageid=7493">Mammography by Rhoda Baer / National Cancer Institute</a>, public domain.</li>
-        <li><a href="https://commons.wikimedia.org/wiki/File:Gardasil_vaccine.jpg">HPV vaccine by Whispyhistory</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Resized and cropped.</li>
-        <li><a href="https://www.pexels.com/photo/elderly-man-patient-looking-at-his-doctor-8413300/">Medical consultation by SHVETS production</a>, <a href="https://www.pexels.com/license/">Pexels License</a>.</li>
-        <li><a href="https://commons.wikimedia.org/wiki/File:Abdominal_ultrasound_examination.jpg">Abdominal ultrasound by JoAnn Moravac / U.S. Army</a>, public domain.</li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:A_Women_registering_for_Free_Breast_%26_Cervical_cancer_Screening_at_Project_PINK_BLUE_event_in_Kuje,_Abuja.jpg">Screening registration in Kuje, Abuja by Project Pink Blue</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Resized and cropped.</li>
+        <li><a href="https://commons.wikimedia.org/wiki/File:IMG-20190917-WA000.jpg">Hepatitis vaccination at a Nigerian community outreach by Tabbyras007</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Resized and cropped.</li>
+        <li>Breast cancer awareness and community outreach photographs supplied for Stay Safe Nigeria.</li>
       </ul>
     </details>
-    <div class="footer-bottom"><span>© <span id="year">2027</span> Stay Safe Nigeria</span><div><a href="legal.html?type=privacy">Privacy</a><a href="legal.html?type=terms">Terms</a><a href="legal.html?type=medical">Medical disclaimer</a></div><a href="#top">Back to top ↑</a></div></footer>
+    <div class="footer-bottom"><span>Copyright ©️ 2027 STAY SAFE NIGERIA! All rights reserved.</span><div><a href="legal.html?type=privacy">Privacy Policy</a><a href="legal.html?type=terms">Terms of Use</a><a href="legal.html?type=medical">Medical Disclaimer</a></div><a href="#top">Back to top</a></div></footer>
 </body>
 </html>

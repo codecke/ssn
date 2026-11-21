@@ -6,8 +6,8 @@ window.STAY_SAFE_CONFIG = {
   newsletter: { signupUrl: "" },
   // Add approved updates here: { slug: "", title: "", date: "YYYY-MM-DD", summary: "", body: ["Paragraph"] }.
   news: [],
-  contact: { email: "", phone: "", whatsapp: "" },
-  social: { instagram: "", facebook: "", x: "", tiktok: "", linkedin: "", youtube: "" },
+  contact: { email: "info@blueozonehealth.org", phone: "", whatsapp: "" },
+  social: { instagram: "", facebook: "", x: "", tiktok: "", linkedin: "https://ng.linkedin.com/company/blue-ozone-health", youtube: "" },
   // Only add formally approved and verified programme centres.
   // Example: { name: "", state: "", city: "", address: "", services: [""], phone: "", directionsUrl: "" }
   centres: []

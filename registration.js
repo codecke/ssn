@@ -38,7 +38,7 @@
     const volunteer = type === "volunteer";
     const fallback = target.querySelector("a");
     target.innerHTML = `<details class="registration-panel">
-      <summary>${volunteer ? "Open volunteer registration" : "Open partnership enquiry"}</summary>
+      <summary>${escape(target.dataset.ctaLabel || (volunteer ? "Open volunteer registration" : "Open partnership enquiry"))}</summary>
       <form class="registration-form">
         <p>Fields marked * are required.</p>
         ${schema.forms[type].map(({ title, fields }) => `<fieldset class="registration-group">
