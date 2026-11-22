@@ -3,3 +3,4 @@ Stay Safe Nigeria /
 node_modules/
 .env
 .env.*
+.vercel

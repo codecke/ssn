@@ -150,8 +150,32 @@ function renderLegalPage() {
   const title = titles[type];
   if (!title) { root.innerHTML = `<section class="detail-main"><h1>Page not found</h1></section>`; return; }
   document.title = `${title} | Stay Safe Nigeria`;
-  const body = type === "medical" ? "Information on this website is intended for general educational purposes and does not replace professional medical consultation, diagnosis or treatment. Reading this information does not constitute a clinical diagnosis. Seek advice from a qualified healthcare professional for personal health concerns." : "The final policy text is awaiting review and approval by Blue Ozone Health. This page must be completed before the website collects personal information or launches publicly.";
-  root.innerHTML = `<section class="detail-hero"><div class="detail-wrap"><a class="back-link" href="index.html">Home</a><p class="eyebrow light">Website information</p><h1>${title}</h1></div></section><section class="detail-main"><div class="detail-wrap legal-copy"><p>${body}</p></div></section>`;
+  const content = {
+    privacy: `<p>Last updated: 22 November 2026.</p>
+      <p>Blue Ozone Health runs the Stay Safe Nigeria website and is responsible for personal information submitted through its volunteer and partnership forms. Contact us at <a href="mailto:info@blueozonehealth.org">info@blueozonehealth.org</a> about this notice or your information.</p>
+      <h2>Information we collect</h2>
+      <p>The forms ask for your name, contact details, location and the answers you choose to provide. Volunteer answers can include your profession or studies, skills, interests and availability. Partnership answers can include organisation details, proposed support and coverage areas. Please do not enter patient records or medical information about another person in the free-text fields.</p>
+      <h2>How we use it</h2>
+      <p>We use your answers to review your registration or enquiry, contact you about the programme, and plan relevant volunteer or partnership activities. The forms ask for your permission to be contacted. You can withdraw that permission by emailing us; this will not affect processing that already took place.</p>
+      <h2>Who can access it</h2>
+      <p>Authorised Blue Ozone Health programme staff can view responses in the registration database. Our hosting, database and email service providers process information needed to run the forms. The notification email sent to the programme inbox contains a response reference, not your form answers. Information may be processed outside Nigeria by these providers, subject to their safeguards and applicable law. We do not publish form responses on the website.</p>
+      <h2>How long we keep it</h2>
+      <p>We keep responses while they are needed to assess registrations, manage programme activity, handle related enquiries and meet applicable record-keeping obligations. We then delete or de-identify information that is no longer needed. You can ask about the retention of your own response using the email address above.</p>
+      <h2>Your choices and rights</h2>
+      <p>You may ask to see or correct your information, request deletion or restriction, object to processing, or withdraw consent where consent is the basis for processing. Some requests may be limited by applicable law. Email <a href="mailto:info@blueozonehealth.org">info@blueozonehealth.org</a> and include enough detail for us to identify your response securely. You may also complain to the Nigeria Data Protection Commission.</p>
+      <h2>Updates</h2>
+      <p>We will update this page when our data practices change and show the new date above.</p>`,
+    terms: `<p>Last updated: 22 November 2026.</p>
+      <p>This website shares information about Stay Safe Nigeria, a Blue Ozone Health initiative. You may read and share its public pages for lawful, non-commercial information purposes. Do not misuse the website or submit false information through its forms.</p>
+      <h2>Registration and participation</h2>
+      <p>Submitting a volunteer or partnership form is an expression of interest. It does not guarantee selection, a role, a placement, funding, a partnership or access to a service. Blue Ozone Health may contact you to discuss the information you submitted. See our <a href="legal.html?type=privacy">Privacy Policy</a> for how form details are handled.</p>
+      <h2>Health information</h2>
+      <p>Website content is general education and is not a diagnosis or a substitute for professional medical advice. See the <a href="legal.html?type=medical">Medical Disclaimer</a>. If you have a personal health concern, speak with a qualified healthcare professional.</p>
+      <h2>External websites and changes</h2>
+      <p>Links to external websites are provided for convenience; those sites have their own content and policies. We may update website information and these terms. Contact <a href="mailto:info@blueozonehealth.org">info@blueozonehealth.org</a> with questions.</p>`,
+    medical: `<p>Information on this website is intended for general educational purposes and does not replace professional medical consultation, diagnosis or treatment. Reading this information does not constitute a clinical diagnosis. Seek advice from a qualified healthcare professional for personal health concerns.</p>`,
+  };
+  root.innerHTML = `<section class="detail-hero"><div class="detail-wrap"><a class="back-link" href="index.html">Home</a><p class="eyebrow light">Website information</p><h1>${title}</h1></div></section><section class="detail-main"><div class="detail-wrap legal-copy">${content[type]}</div></section>`;
 }
 
 renderContact();

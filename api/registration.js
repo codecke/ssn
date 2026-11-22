@@ -4,6 +4,10 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const UUID = /^[\da-f]{8}-[\da-f]{4}-4[\da-f]{3}-[89ab][\da-f]{3}-[\da-f]{12}$/i;
 const TABLE = "ssn_registrations";
 
+function inboxes(value) {
+  return [...new Set((value || "").split(",").map((email) => email.trim()).filter(Boolean))];
+}
+
 function settings() {
   const env = process.env;
   return {
@@ -12,13 +16,14 @@ function settings() {
     databaseKey: env.SSN_SUPABASE_SERVICE_ROLE_KEY,
     mailKey: env.SSN_RESEND_API_KEY,
     sender: env.SSN_REGISTRATION_FROM,
-    recipients: { volunteer: env.SSN_VOLUNTEER_INBOX, partner: env.SSN_PARTNER_INBOX },
+    recipients: { volunteer: inboxes(env.SSN_VOLUNTEER_INBOX), partner: inboxes(env.SSN_PARTNER_INBOX) },
   };
 }
 
 function isReady(config) {
   return Boolean(config.enabled && config.databaseUrl && config.databaseKey && config.mailKey &&
-    EMAIL.test(config.sender || "") && Object.values(config.recipients).every((email) => EMAIL.test(email || "")));
+    EMAIL.test(config.sender || "") && Object.values(config.recipients).every((list) =>
+      list.length > 0 && list.length <= 50 && list.every((email) => EMAIL.test(email))));
 }
 
 function validate(type, raw) {
@@ -82,7 +87,7 @@ async function notifyTeam(config, type, id) {
     },
     body: JSON.stringify({
       from: config.sender,
-      to: [config.recipients[type]],
+      to: config.recipients[type],
       subject: `Stay Safe Nigeria: new ${formName}`,
       text: `A new ${formName} was saved. Reference: ${id}. Open ssn_registrations in the Stay Safe Nigeria Supabase project to view the response.`,
     }),

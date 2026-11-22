@@ -44,11 +44,17 @@ The Vercel Node function at `/api/registration` validates and stores volunteer a
    | `SSN_SUPABASE_SERVICE_ROLE_KEY` | Supabase service-role JWT used by the function |
    | `SSN_RESEND_API_KEY` | Resend sending key |
    | `SSN_REGISTRATION_FROM` | Email address on a verified Resend sending domain |
-   | `SSN_VOLUNTEER_INBOX` | Exact BOH volunteer inbox |
-   | `SSN_PARTNER_INBOX` | Exact BOH partnership inbox |
+   | `SSN_VOLUNTEER_INBOX` | Comma-separated addresses for volunteer notifications |
+   | `SSN_PARTNER_INBOX` | Comma-separated addresses for partnership notifications |
    | `SSN_REGISTRATION_ENABLED` | Set to `true` in a private preview for the acceptance check, and in production once ready |
 
 3. In the private preview, send one synthetic response per form. Verify each is saved in `public.ssn_registrations` and that its reference reaches the correct inbox. Publish the BOH-approved privacy policy and confirm staff access before enabling production.
 4. Staff with authorised Supabase project access can open **Table Editor → public → ssn_registrations** and filter by `form_type` or the reference (`id`). The `notified` column shows whether the email provider accepted the notification. A failed notification leaves the saved response available for follow-up.
+
+### Preview connection check (21 November 2026)
+
+The protected Vercel Preview deployment has registration enabled. Resend verified `blueozonehealth.org`, and Preview sends from `info@blueozonehealth.org` to that same inbox for both form types. The sending-only Resend key is restricted to that domain and stored as a Preview secret. Synthetic volunteer (`d3b23659-15ba-42cc-83bc-54a81505ffd6`) and partner (`0d9a3061-1d66-402a-96ba-8f61e1193e54`) submissions each returned HTTP 201. Both rows appear in Supabase with `notified = true`, and Resend marked both notifications **Delivered**. The retired `?export=` endpoint returned HTTP 404.
+
+This check does not approve a production rollout. BOH still needs to approve the privacy and terms text, confirm staff access to the inbox and Supabase, and review the remaining public-site release items. The two Supabase records above contain synthetic test data.
 
 Without the enabled API and complete configuration, Get Involved displays the existing registration links. A plain Python static preview also uses those links. Set `SSN_REGISTRATION_ENABLED=false` and redeploy to switch back to the fallback links.
