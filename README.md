@@ -55,6 +55,10 @@ The Vercel Node function at `/api/registration` validates and stores volunteer a
 
 The protected Vercel Preview deployment has registration enabled. Resend verified `blueozonehealth.org`, and Preview sends from `info@blueozonehealth.org` to that same inbox for both form types. The sending-only Resend key is restricted to that domain and stored as a Preview secret. Synthetic volunteer (`d3b23659-15ba-42cc-83bc-54a81505ffd6`) and partner (`0d9a3061-1d66-402a-96ba-8f61e1193e54`) submissions each returned HTTP 201. Both rows appear in Supabase with `notified = true`, and Resend marked both notifications **Delivered**. The retired `?export=` endpoint returned HTTP 404.
 
-This check does not approve a production rollout. BOH still needs to approve the privacy and terms text, confirm staff access to the inbox and Supabase, and review the remaining public-site release items. The two Supabase records above contain synthetic test data.
+This check did not itself authorize a production rollout. The two Supabase records above contain synthetic test data.
+
+### Production launch (22 November 2026)
+
+The owner approved the new Privacy Policy and Terms of Use text and activation of the native forms. Vercel Production now has the seven registration settings, including the server-only Supabase and domain-scoped Resend secrets. The public deployment at `https://www.staysafenigeria.org/forms.html` reports `{"ready":true}` from `/api/registration` and displays native volunteer and partner forms. Synthetic Production volunteer (`b9dc5997-eb9e-4429-8f58-8d535b26ab72`) and partner (`9c7d3030-ba16-4171-8f1e-1b1f9a6ed2b1`) submissions returned HTTP 201; both appear in Supabase with `notified = true`, and Resend marked both messages to `info@blueozonehealth.org` **Delivered**. These are synthetic test records. The old `?export=` route still returns HTTP 404.
 
 Without the enabled API and complete configuration, Get Involved displays the existing registration links. A plain Python static preview also uses those links. Set `SSN_REGISTRATION_ENABLED=false` and redeploy to switch back to the fallback links.
