@@ -17,6 +17,8 @@ function settings() {
     mailKey: env.SSN_RESEND_API_KEY,
     sender: env.SSN_REGISTRATION_FROM,
     recipients: { volunteer: inboxes(env.SSN_VOLUNTEER_INBOX), partner: inboxes(env.SSN_PARTNER_INBOX) },
+    sheetUrl: env.SSN_GOOGLE_SHEET_WEBHOOK_URL,
+    sheetToken: env.SSN_GOOGLE_SHEET_TOKEN,
   };
 }
 
@@ -109,6 +111,22 @@ async function notifyTeam(config, type, id, answers) {
   if (!response.ok) throw new Error(`Registration mail returned ${response.status}`);
 }
 
+async function syncSheet(config, registration) {
+  if (!config.sheetUrl || !config.sheetToken) return;
+  const url = new URL(config.sheetUrl);
+  if (url.protocol !== "https:" || url.hostname !== "script.google.com" ||
+      !/^\/macros\/s\/[^/]+\/exec$/.test(url.pathname)) {
+    throw new Error("Invalid Google Sheet endpoint");
+  }
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ token: config.sheetToken, registration }),
+    signal: AbortSignal.timeout(6500),
+  });
+  if (!response.ok || !(await response.json()).ok) throw new Error("Google Sheet sync failed");
+}
+
 async function submit(req, res, config) {
   if (!/^application\/json(?:\s*;|$)/i.test(req.headers["content-type"] || "")) {
     return res.status(415).json({ error: "Send a JSON request." });
@@ -126,28 +144,40 @@ async function submit(req, res, config) {
   const result = validate(type, answers);
   if (result.error) return res.status(422).json(result);
 
-  const inserted = await database(config, "?on_conflict=id&select=id", {
+  const inserted = await database(config, "?on_conflict=id&select=id,submitted_at", {
     method: "POST",
     headers: { Prefer: "resolution=ignore-duplicates,return=representation" },
     body: JSON.stringify({ id, form_type: type, answers: result.answers }),
   });
   let savedAnswers = result.answers;
+  let submittedAt = inserted[0]?.submitted_at;
+  let notified = false;
   if (!inserted.length) {
-    const [existing] = await database(config, `?id=eq.${id}&select=form_type,notified,answers`);
+    const [existing] = await database(config, `?id=eq.${id}&select=form_type,notified,answers,submitted_at`);
     if (!existing || existing.form_type !== type) return res.status(409).json({ error: "Start a new registration and try again." });
-    if (existing.notified) return res.status(200).json({ ok: true });
     savedAnswers = existing.answers;
+    submittedAt = existing.submitted_at;
+    notified = existing.notified;
   }
 
+  if (!notified) {
+    try {
+      await notifyTeam(config, type, id, savedAnswers);
+      await database(config, `?id=eq.${id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ notified: true }),
+      });
+      notified = true;
+    } catch (error) {
+      // Storage is authoritative. Authorised staff can still view the saved response in Supabase.
+      console.error("Registration notification remains unconfirmed:", error.message);
+    }
+  }
   try {
-    await notifyTeam(config, type, id, savedAnswers);
-    await database(config, `?id=eq.${id}`, {
-      method: "PATCH",
-      body: JSON.stringify({ notified: true }),
-    });
+    await syncSheet(config, { id, form_type: type, submitted_at: submittedAt, answers: savedAnswers, notified });
   } catch (error) {
-    // Storage is authoritative. Authorised staff can still view the saved response in Supabase.
-    console.error("Registration notification remains unconfirmed:", error.message);
+    // The saved response and email notification remain available if the sheet cannot be updated.
+    console.error("Registration sheet sync remains unconfirmed:", error.message);
   }
   return res.status(inserted.length ? 201 : 200).json({ ok: true });
 }

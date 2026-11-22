@@ -33,7 +33,7 @@ This workspace has Blue Ozone **Media** code, but no Blue Ozone **Health** websi
 
 ## On-site registration
 
-The Vercel Node function at `/api/registration` validates and stores volunteer and partner submissions. The layouts and server share `registration-schema.js`, based on the existing questionnaires. A successful save is the registration receipt. Designated programme inboxes receive the full submitted answers and a response reference. Additional recipients are BCC'd. Authorised staff can also view the answers in Supabase.
+The Vercel Node function at `/api/registration` validates and stores volunteer and partner submissions. The layouts and server share `registration-schema.js`, based on the existing questionnaires. A successful save is the registration receipt. Designated programme inboxes receive the full submitted answers and a response reference. Additional recipients are BCC'd. Authorised staff can view the answers in Supabase and the restricted registration Google Sheet when its sync is configured.
 
 1. Run `database/registration.sql` in the BOH Supabase project. The table uses row level security and only the server service role has table access.
 2. Add these environment variables in the Vercel project. Keep the API keys in Vercel's server environment.
@@ -47,9 +47,13 @@ The Vercel Node function at `/api/registration` validates and stores volunteer a
    | `SSN_VOLUNTEER_INBOX` | Comma-separated addresses for volunteer notifications |
    | `SSN_PARTNER_INBOX` | Comma-separated addresses for partnership notifications |
    | `SSN_REGISTRATION_ENABLED` | Set to `true` in a private preview for the acceptance check, and in production once ready |
+   | `SSN_GOOGLE_SHEET_WEBHOOK_URL` | Optional Apps Script web app `/exec` URL for Google Sheet sync |
+   | `SSN_GOOGLE_SHEET_TOKEN` | Shared secret matching the Apps Script `SSN_INGEST_TOKEN` property |
 
 3. In the private preview, send one synthetic response per form. Verify each is saved in `public.ssn_registrations` and that its reference reaches the correct inbox. Publish the BOH-approved privacy policy and confirm staff access before enabling production.
 4. Staff with authorised Supabase project access can open **Table Editor → public → ssn_registrations** and filter by `form_type` or the reference (`id`). The `notified` column shows whether the email provider accepted the notification; it is not proof that every recipient opened the message. A failed notification leaves the saved response available for follow-up.
+
+The Google Sheet sync script is in `google-sheets/Code.gs`. Bind it to the private registration spreadsheet, set its `SSN_INGEST_TOKEN` Script Property, and deploy it as a web app that executes as the owner. Configure both Vercel variables above with the deployment URL and the same secret. The script appends a row only when its reference is new; the form server retries the sync if the same registration is submitted again. Supabase remains the authoritative record if the sheet service is unavailable.
 
 ### Preview connection check (21 November 2026)
 
