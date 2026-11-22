@@ -33,7 +33,7 @@ This workspace has Blue Ozone **Media** code, but no Blue Ozone **Health** websi
 
 ## On-site registration
 
-The Vercel Node function at `/api/registration` validates and stores volunteer and partner submissions. The layouts and server share `registration-schema.js`, based on the existing questionnaires. A successful save is the registration receipt. The corresponding mailbox receives a notification with a response reference. Authorised staff view the answers in Supabase.
+The Vercel Node function at `/api/registration` validates and stores volunteer and partner submissions. The layouts and server share `registration-schema.js`, based on the existing questionnaires. A successful save is the registration receipt. Designated programme inboxes receive the full submitted answers and a response reference. Additional recipients are BCC'd. Authorised staff can also view the answers in Supabase.
 
 1. Run `database/registration.sql` in the BOH Supabase project. The table uses row level security and only the server service role has table access.
 2. Add these environment variables in the Vercel project. Keep the API keys in Vercel's server environment.
@@ -49,7 +49,7 @@ The Vercel Node function at `/api/registration` validates and stores volunteer a
    | `SSN_REGISTRATION_ENABLED` | Set to `true` in a private preview for the acceptance check, and in production once ready |
 
 3. In the private preview, send one synthetic response per form. Verify each is saved in `public.ssn_registrations` and that its reference reaches the correct inbox. Publish the BOH-approved privacy policy and confirm staff access before enabling production.
-4. Staff with authorised Supabase project access can open **Table Editor → public → ssn_registrations** and filter by `form_type` or the reference (`id`). The `notified` column shows whether the email provider accepted the notification. A failed notification leaves the saved response available for follow-up.
+4. Staff with authorised Supabase project access can open **Table Editor → public → ssn_registrations** and filter by `form_type` or the reference (`id`). The `notified` column shows whether the email provider accepted the notification; it is not proof that every recipient opened the message. A failed notification leaves the saved response available for follow-up.
 
 ### Preview connection check (21 November 2026)
 

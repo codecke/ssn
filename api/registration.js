@@ -76,8 +76,20 @@ async function database(config, query, options = {}) {
   return response.status === 204 ? null : response.json();
 }
 
-async function notifyTeam(config, type, id) {
+function notificationText(type, id, answers) {
+  const sections = schema.forms[type].map((group) => {
+    const lines = group.fields.filter((field) => Object.hasOwn(answers, field.name)).map((field) => {
+      const value = [].concat(answers[field.name]).join(", ").replace(/\r?\n/g, "\n  ");
+      return `${field.label}\n  ${value}`;
+    });
+    return lines.length ? `${group.title}\n${lines.join("\n\n")}` : "";
+  }).filter(Boolean);
+  return `Reference: ${id}\n\n${sections.join("\n\n")}\n\nThis response is for authorised Stay Safe Nigeria programme staff only.`;
+}
+
+async function notifyTeam(config, type, id, answers) {
   const formName = type === "volunteer" ? "volunteer registration" : "partnership enquiry";
+  const [primary, ...copies] = config.recipients[type];
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -87,9 +99,10 @@ async function notifyTeam(config, type, id) {
     },
     body: JSON.stringify({
       from: config.sender,
-      to: config.recipients[type],
+      to: [primary],
+      ...(copies.length ? { bcc: copies } : {}),
       subject: `Stay Safe Nigeria: new ${formName}`,
-      text: `A new ${formName} was saved. Reference: ${id}. Open ssn_registrations in the Stay Safe Nigeria Supabase project to view the response.`,
+      text: notificationText(type, id, answers),
     }),
     signal: AbortSignal.timeout(6500),
   });
@@ -118,14 +131,16 @@ async function submit(req, res, config) {
     headers: { Prefer: "resolution=ignore-duplicates,return=representation" },
     body: JSON.stringify({ id, form_type: type, answers: result.answers }),
   });
+  let savedAnswers = result.answers;
   if (!inserted.length) {
-    const [existing] = await database(config, `?id=eq.${id}&select=form_type,notified`);
+    const [existing] = await database(config, `?id=eq.${id}&select=form_type,notified,answers`);
     if (!existing || existing.form_type !== type) return res.status(409).json({ error: "Start a new registration and try again." });
     if (existing.notified) return res.status(200).json({ ok: true });
+    savedAnswers = existing.answers;
   }
 
   try {
-    await notifyTeam(config, type, id);
+    await notifyTeam(config, type, id, savedAnswers);
     await database(config, `?id=eq.${id}`, {
       method: "PATCH",
       body: JSON.stringify({ notified: true }),
