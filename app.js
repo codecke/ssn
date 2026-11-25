@@ -51,7 +51,7 @@ function renderCentres() {
     const service = serviceSelect.value;
     const visible = centres.filter((centre) => (!state || centre.state === state) && (!service || (centre.services || []).includes(service)));
     if (!centres.length) {
-      result.innerHTML = `<div class="empty-state"><span class="empty-icon" aria-hidden="true">⌖</span><h3>No participating centres listed.</h3></div>`;
+      result.innerHTML = `<div class="empty-state"><span class="empty-icon" aria-hidden="true">⌖</span><h3>Participating centers coming soon...</h3></div>`;
       return;
     }
     if (!visible.length) {
